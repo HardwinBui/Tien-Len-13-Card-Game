@@ -39,7 +39,65 @@ class Combo{
 			}
 		}
 	}
-	
+
+
+
+	/*
+	 * Functions to determine what the type of a given combo is
+	 */
+	static isSingle(combo){
+		return combo.hand.length == 1;
+	}
+
+	static isPair(combo){
+		if(combo.hand.length == 2)
+			return combo.hand[0].value == combo.hand[1].value;
+		return false;
+	}
+
+	static isTriple(combo){
+		if(combo.hand.length == 3)
+			return combo.hand[0].value == combo.hand[1].value && combo.hand[0].value == combo.hand[2].value;
+		return false;
+	}
+
+	static isRun(combo){
+		if(combo.hand.length >= 3){ // a run requires at least three cards
+			var firstVal = combo.hand[0].value;
+			for(var i = 1; i < combo.hand.length; i++){
+				firstVal -= 1;
+				if(firstVal != combo.hand[i].value)
+					return false;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	static isPairBomb(combo){
+		if(combo.hand.length >= 6){
+			var firstVal = combo.hand[0].value;
+			if(firstVal != combo.hand[1].value)
+				return false;
+
+			for(var i = 2; i < combo.hand.length; i += 2){
+				firstVal -= 1;
+				if(firstVal != combo.hand[i].value || firstVal != combo.hand[i+1].value)
+					return false;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	static isFourOfKind(combo){
+		if(combo.hand.length == 4)
+			return combo.hand[0].value == combo.hand[1].value &&
+					combo.hand[2].value == combo.hand[3].value &&
+					combo.hand[0].value == combo.hand[2].value;
+		return false;
+	}
+
 	// Prints the current combo for debugging
 	printCombo(){
 		for(var i = 0; i < this.hand.length; i++){

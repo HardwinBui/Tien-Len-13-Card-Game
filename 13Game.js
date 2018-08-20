@@ -31,10 +31,14 @@ class Game{
 		}
 		
 		this.curCombo = new Combo();
-		this.curCombo.addCard(new Card(1, 1));
+		this.curCombo.addCard(new Card(4, 2));
+		this.curCombo.addCard(new Card(4, 3));
+		this.curCombo.addCard(new Card(3, 0));
 		this.curCombo.addCard(new Card(2, 1));
-		this.curCombo.addCard(new Card(1, 0));
+		this.curCombo.addCard(new Card(2, 1));
+		this.curCombo.addCard(new Card(2, 0));
 		this.curCombo.printCombo();
+		console.log(Combo.isPairBomb(this.curCombo));
 		
 		// Check for instant wins
 		
