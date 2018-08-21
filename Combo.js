@@ -4,7 +4,6 @@ class Combo{
 	
 	constructor(){
 		this.hand = [];
-		//[card];
 	}
 	
 	// Adds a card to the current combo with order of greatest to least
@@ -62,7 +61,8 @@ class Combo{
 	}
 
 	static isRun(combo){
-		if(combo.hand.length >= 3){ // a run requires at least three cards
+		// a run requires at least three cards
+		if(combo.hand.length >= 3){
 			var firstVal = combo.hand[0].value;
 			for(var i = 1; i < combo.hand.length; i++){
 				firstVal -= 1;
@@ -96,6 +96,11 @@ class Combo{
 					combo.hand[2].value == combo.hand[3].value &&
 					combo.hand[0].value == combo.hand[2].value;
 		return false;
+	}
+
+	static isValid(combo){
+		return Combo.isSingle(combo) || Combo.isPair(combo) || Combo.isTriple(combo) ||
+				Combo.isRun(combo) || Combo.isPairBomb(combo) || Combo.isFourOfKind(combo);
 	}
 
 	// Prints the current combo for debugging
