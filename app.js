@@ -19,10 +19,11 @@ app.use('/client', express.static(__dirname + '/client'));
 serv.listen(port);
 
 
-var PLAYER_LIST = {};
+var PLAYER_LIST = [];
+var playerAmt = 0;
 
 var temp = 1;
-var g = new Game(temp, temp, temp, temp);
+var game;
 var c = new Combo();
 c.addCard(new Card(4, 0));
 g.playCombo(c);
@@ -34,9 +35,15 @@ io.sockets.on('connection', function(socket){
 	console.log('A challenger approaches.');
 	
 	// Add player to player list
-	PLAYER_LIST[socket.id] = socket;
+	PLAYER_LIST.push(socket);
+	playerAmt += 1;
 //	new Game(socket, socket, socket, socket);
-	
+
+	// Make a game if there are four players
+	if(playerAmt >= 4){
+		g = new Game(PLAYER_LIST[0], PLAYER_LIST[1], PLAYER_LIST[2], PLAYER_LIST[3]);
+	}
+
 	// Server recieves message
 	socket.on(':^]', function(data){
 		console.log(data.why);
@@ -53,6 +60,8 @@ io.sockets.on('connection', function(socket){
 // Called every 40 mills
 setInterval(function(){
 	//for each player, emit game message
+
+	//console.log(PLAYER_LIST.length);
 
 	/*	
 	for(var i in PLAYER_LIST){
