@@ -34,7 +34,7 @@ class Game{
 	
 		
 		
-		this.curCombo.addCard(new Card(3, 0));
+//		this.curCombo.addCard(new Card(3, 0));
 	/*	this.curCombo.addCard(new Card(2, 1));
 		this.curCombo.addCard(new Card(2, 1));
 		this.curCombo.addCard(new Card(2, 0));
@@ -98,9 +98,13 @@ class Game{
 		return false;
 	}
 
+	// Advance to the next player still in
 	nextPlayer(){
-		this.curPlayer += 1;
-		this.curPlayer %= 4;
+		var prevPlayer = this.curPlayer;
+		do{
+			this.curPlayer += 1;
+			this.curPlayer %= 4;
+		} while(this.pHands[this.curPlayer].hand.length != 0 && prevPlayer != this.curPlayer)
 	}
 	
 }
