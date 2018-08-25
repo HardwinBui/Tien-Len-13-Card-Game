@@ -5,6 +5,7 @@ class Game{
 	
 	constructor(p1, p2, p3, p4) {		
 		this.players = [p1, p2, p3, p4];
+		this.playerIn = [true, true, true, true];
 		this.curPlayer = 0;
 		this.curTurn = 0;
 		
@@ -85,7 +86,6 @@ class Game{
 	// Try to set a given combo as the current combo
 	playCombo(combo){
 		if(this.canTop(combo)){
-				console.log('check');
 			this.curCombo = combo;
 			// Remove each card in the played combo from the player's hand
 			for(var i = 0; i < combo.hand.length; i++){
@@ -104,9 +104,27 @@ class Game{
 		do{
 			this.curPlayer += 1;
 			this.curPlayer %= 4;
-		} while(this.pHands[this.curPlayer].hand.length != 0 && prevPlayer != this.curPlayer)
+			if(prevPlayer == this.curPlayer)
+				break;
+		} while(this.pHands[this.curPlayer].hand.length <= 0 || !this.playerIn[this.curPlayer])
 	}
 	
+	// Allows each player with cards to play in the round again
+	resetRound(){
+		this.curCombo = new Combo();
+		for(var i = 0; i < this.playerIn.length; i++){
+			if(this.pHands[i].hand.length > 0)
+				this.playerIn[i] = true;
+			else
+				this.playerIn[i] = false;
+		}
+	}
+
+	// Skips a player's turn and they stay out for the remainder of the round
+	passRound(){
+		this.playerIn[this.curPlayer] = false;
+		this.nextPlayer();
+	}
 }
 
 module.exports = Game;
