@@ -26,7 +26,7 @@ var temp = 1;
 var game;
 var c = new Combo();
 c.addCard(new Card(4, 0));
-g.playCombo(c);
+//g.playCombo(c);
 
 // Loading up socket.io tools
 var io = require('socket.io')(serv,{});
@@ -39,10 +39,30 @@ io.sockets.on('connection', function(socket){
 	playerAmt += 1;
 //	new Game(socket, socket, socket, socket);
 
+	for(var i = 0; i < PLAYER_LIST.length; i++)
+		console.log(PLAYER_LIST[i].id);
+
 	// Make a game if there are four players
 	if(playerAmt >= 4){
-		g = new Game(PLAYER_LIST[0], PLAYER_LIST[1], PLAYER_LIST[2], PLAYER_LIST[3]);
+		game = new Game(PLAYER_LIST[0], PLAYER_LIST[1], PLAYER_LIST[2], PLAYER_LIST[3]);
 	}
+
+
+	// Remove player from the list if they disconnect
+	socket.on('disconnect', function(){
+		for(var i = 0; i < PLAYER_LIST.length; i++){
+			if(PLAYER_LIST[i] == socket){
+				PLAYER_LIST.splice(i, 1);
+				break;
+			}
+		}
+		playerAmt -= 1;
+		console.log('A player has left.');
+	});
+
+
+
+
 
 	// Server recieves message
 	socket.on(':^]', function(data){
@@ -51,6 +71,7 @@ io.sockets.on('connection', function(socket){
 	
 	// Server sends message
 	socket.emit(':^[', {
+			// can see message in website console log
 		msg:'not happy',
 	});
 });
@@ -63,14 +84,21 @@ setInterval(function(){
 
 	//console.log(PLAYER_LIST.length);
 
-	/*	
-	for(var i in PLAYER_LIST){
-		var player = PLAYER_LIST[i];
-		//stuff
-		player.emit('msg', {
-			//update the specific player with data
+	if(playerAmt <= 4){	
+			for(var i in PLAYER_LIST){
+			var player = PLAYER_LIST[i];
+			//stuff
+			player.emit('curGame', {
+				//update the specific player with data
+				gameData: JSON.stringify(game),
+			});
+		}
+
+		/*
+		PLAYER_LIST[game.curPlayer].on('upsGame', function(data){
+			//not sure if work test tmr
 		});
+		*/
 	}
-	*/
 	
 }, 1000/25);
