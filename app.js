@@ -3,6 +3,7 @@ console.log('Link Start');
 const Game = require('./13Game');
 const Combo = require('./Combo');
 const Card = require('./Card');
+//const JSON = require('circular-json');
 
 var port = 2000;
 var express = require('express');
@@ -84,13 +85,15 @@ setInterval(function(){
 
 	//console.log(PLAYER_LIST.length);
 
-	if(playerAmt <= 4){	
-			for(var i in PLAYER_LIST){
+	if(playerAmt >= 4){	
+		//console.log(playerAmt);
+		for(var i in PLAYER_LIST){
 			var player = PLAYER_LIST[i];
 			//stuff
 			player.emit('curGame', {
 				//update the specific player with data
 				gameData: JSON.stringify(game),
+				playerNum: i,
 			});
 		}
 

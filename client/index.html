@@ -78,6 +78,13 @@
 	<!-- Javascript that will be ran by the client -->
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 	<script>
+	//	const Game = require('./js/13Game');
+	//	const Combo = require('./js/Combo');
+	//	const Card = require('./js/Card');
+
+		var game = null;
+		
+		
 		var socket = io();
 	
 		socket.emit(':^]',{
@@ -87,12 +94,37 @@
 		socket.on(':^[', function(data){
 			console.log(data.msg);
 		});
+		
+		socket.on('curGame', function(data){
+			//console.log('line read');
+			game = JSON.parse(data.gameData);
+			
+			// Update display
+			for(var i = 0; i < 1; i++){
+				var card = game.pHands[data.playerNum][i];
+				console.log(card.value + " " + card.suit);
+				
+				//console.log(game.hand1[0].value);
+				
+				//console.log(game.curCombo[0].suit);
+			}
+		});
+		
 	
 		function temp(kay){
 			console.log('ked');
 			document.getElementById("card" + kay).style.display = "none";
 		}
 
+		/*
+		// Called every 40 mills
+		setInterval(function(){
+			if(game){	
+
+			}
+		}, 1000/25);
+		*/
+		
 	</script>
 
 </html>

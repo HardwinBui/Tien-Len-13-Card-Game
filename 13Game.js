@@ -35,7 +35,7 @@ class Game{
 	
 		
 		
-//		this.curCombo.addCard(new Card(3, 0));
+	//	this.curCombo.addCard(new Card(3, 0));
 	/*	this.curCombo.addCard(new Card(2, 1));
 		this.curCombo.addCard(new Card(2, 1));
 		this.curCombo.addCard(new Card(2, 0));
@@ -124,6 +124,22 @@ class Game{
 	passRound(){
 		this.playerIn[this.curPlayer] = false;
 		this.nextPlayer();
+	}
+	
+	// Changes the class into a JSON object
+	toJSON(){
+		var jHands = [];
+		for (var i = 0; i < 4; i++){
+			jHands[i] = this.pHands[i].hand;
+		}
+		
+		return {
+			curPlayer: this.curPlayer,
+			curTurn: this.curTurn,
+			curCombo: this.curCombo.hand,
+			pHands: jHands,
+			pIn: this.playerIn
+		};
 	}
 }
 
