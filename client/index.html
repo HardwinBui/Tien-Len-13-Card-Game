@@ -1,16 +1,31 @@
-:]
+<html>
+	
+	<head>
+		<title>13 Card Game :]</title>
+	</head>
 
+	<body>
+		<h1>Tien Len (by Hardwin Bui)</h1>
+		<p>This website is a nonprofit project made in order for people to
+			enjoy the Vietnamese card game, 13 or Tien Len, with each other
+			online. If you want to review the rules for the game, click 
+			<a href="https://www.google.com" target="_blank">here</a>.
+		</p>
+	</body>
 
-<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-<script>
-	var socket = io();
+	<!-- Javascript that will be ran by the client -->
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<script>
+		var socket = io();
 	
-	socket.emit(':^]',{
-		why:'this works'
-	});
+		socket.emit(':^]',{
+			why:'happy recieved by client'
+		});
 	
-	socket.on(':^[', function(data){
-		console.log(data.msg);
-	});
+		socket.on(':^[', function(data){
+			console.log(data.msg);
+		});
 	
-</script>
+	</script>
+
+</html>
