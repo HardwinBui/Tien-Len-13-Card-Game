@@ -92,8 +92,8 @@
 		const valuePrint = ['3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', '1', '2'];
 		const suitPrint = ['S', 'C', 'D', 'H'];
 		
-		//var myGame = null;
-		var curTurn = -1;
+		var myGame = null;
+		//var curTurn = -1;
 		var myCombo = [];
 		var myHand = [];
 		
@@ -110,9 +110,10 @@
 		socket.on('curGame', function(data){
 			var game = JSON.parse(data.gameData);
 		
-			//if(myGame == null || myGame.curTurn != game.curTurn){
-			if(curTurn < 0 || curTurn != game.curTurn){
-				curTurn = game.curTurn;
+			if(myGame == null || myGame.curTurn != game.curTurn){
+			//if(curTurn < 0 || curTurn != game.curTurn){
+				myGame = game; 
+				//curTurn = game.curTurn;
 				myHand = game.pHands[data.playerNum];
 				//console.log('line read');
 			
