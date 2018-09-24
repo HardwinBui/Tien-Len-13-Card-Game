@@ -75,6 +75,16 @@ io.sockets.on('connection', function(socket){
 			// can see message in website console log
 		msg:'not happy',
 	});
+	
+	
+	
+	socket.on('newCombo', function(data){
+		var theCombo = JSON.parse(data.combo);
+		for(var i = 0; i < theCombo.length; i++){
+			console.log(theCombo[i].value + " " + theCombo[i].suit);
+		}
+	});
+	
 });
 
 

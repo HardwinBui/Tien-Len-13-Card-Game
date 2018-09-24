@@ -9,10 +9,27 @@
 		<p>This website is a nonprofit project made in order for people to
 			enjoy the Vietnamese card game, 13 or Tien Len, with each other
 			online. If you want to review the rules for the game, click 
-			<a href="https://www.google.com" target="_blank">here</a>.
+			<a href="https://en.wikipedia.org/wiki/Ti%E1%BA%BFn_l%C3%AAn" target="_blank">here</a>.
 		</p>
 	</body>
 
+	<body>
+		<p>Current Combination:</p>
+		<img src="/client/img/1D.png" alt="12" style="height:80px; width:60px" id="disp1">
+		<img src="/client/img/2D.png" alt="12" style="height:80px; width:60px" id="disp2">
+		<img src="/client/img/3D.png" alt="12" style="height:80px; width:60px" id="disp3">
+		<img src="/client/img/4D.png" alt="12" style="height:80px; width:60px" id="disp4">
+		<img src="/client/img/5D.png" alt="12" style="height:80px; width:60px" id="disp5">
+		<img src="/client/img/6D.png" alt="12" style="height:80px; width:60px" id="disp6">
+		<img src="/client/img/7D.png" alt="12" style="height:80px; width:60px" id="disp7">
+		<img src="/client/img/8D.png" alt="12" style="height:80px; width:60px" id="disp8">
+		<img src="/client/img/9D.png" alt="12" style="height:80px; width:60px" id="disp9">
+		<img src="/client/img/10D.png" alt="12" style="height:80px; width:60px" id="disp10">
+		<img src="/client/img/JD.png" alt="12" style="height:80px; width:60px" id="disp11">
+		<img src="/client/img/QD.png" alt="12" style="height:80px; width:60px" id="disp12">
+		<img src="/client/img/KD.png" alt="12" style="height:80px; width:60px" id="disp13">
+	</body>
+	
 	<body>
 		<p>Play cards from your hand:</p>
 		<img onclick="javascript:addToHand('1')" src="/client/img/1H.png" alt="12" 
@@ -70,15 +87,17 @@
 		<img onclick="javascript:addToCombo('12')" src="/client/img/QS.png" alt="12"
 			style="height:80px; width:60px" id="card12">
 		<img onclick="javascript:addToCombo('13')" src="/client/img/KS.png" alt="132"
-			style="height:80px; width:60px" id="card13">				
+			style="height:80px; width:60px" id="card13">	
 	</body>
+	
+	<br/>
+	<p  align="center"><button type="button" onclick="javascript:submitCombo()">Play <br>Combination</button></p>
 
 	<!-- button type="button" style="height:200px; width:200px">A0</button -->
 
 	<!-- Javascript that will be ran by the client -->
-	<!-- script src="/client/js/require.js"></script -->
-	<!-- script src="/client/js/Combo.js"></script -->
-	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<!--script src="https://cdn.socket.io/socket.io-1.4.5.js"></script-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
 	<script>
 	//	const Game = require('./js/13Game');
 	//	const Combo = require('/client/js/Combo.js');
@@ -93,9 +112,10 @@
 		const suitPrint = ['S', 'C', 'D', 'H'];
 		
 		var myGame = null;
-		//var curTurn = -1;
 		var myCombo = [];
 		var myHand = [];
+		var myNum;
+		
 		
 		var socket = io();
 	
@@ -111,14 +131,30 @@
 			var game = JSON.parse(data.gameData);
 		
 			if(myGame == null || myGame.curTurn != game.curTurn){
-			//if(curTurn < 0 || curTurn != game.curTurn){
+				myNum = data.playerNum;
 				myGame = game; 
-				//curTurn = game.curTurn;
-				myHand = game.pHands[data.playerNum];
+				myHand = game.pHands[myNum];
 				//console.log('line read');
-			
+				
+				// Update cur combo display(the one you have to beat)
+				for(var i = 0; i < 13; i++){
+					if(i < myGame.curCombo.length){
+					var card = myGame.curCombo[myGame.curCombo - 1 - i];
+					document.getElementById("disp" + (i+1).toString()).src = "/client/img/" 
+						+ valuePrint[card.value] + suitPrint[card.suit] + ".png";
+					document.getElementById("disp" + (i+1).toString()).alt = card.value + "" 
+						+ card.suit;
+						
+						document.getElementById("disp" + (i+1).toString()).style.display = "inline";
+					}
+					else{
+						document.getElementById("disp" + (i+1).toString()).style.display = "none";
+					}
+				}
+				
+				// Update other two displays
 				updateDisplays();
-				// update cur combo display(the one you have to beat)
+				
 			}
 		});
 		
@@ -187,7 +223,7 @@
 			}
 		}
 		
-
+		// Adds a card from the hand to the combo
 		function addToCombo(index){
 		
 			var val = document.getElementById("card" + index).alt.charCodeAt(0) - 48;
@@ -206,6 +242,7 @@
 			
 		}
 		
+		// Adds a card from the combo to the hand
 		function addToHand(index){
 		
 			var val = document.getElementById("play" + index).alt.charCodeAt(0) - 48;
@@ -222,6 +259,19 @@
 			removeCard(myCombo, card);
 			updateDisplays();
 			
+		}
+		
+		// Send combo to game so that it can be checked
+		function submitCombo(){
+		console.log(myNum + " " + myGame.curPlayer);
+			if(myNum == myGame.curPlayer){
+				// Prevent player from submitting again before game is updated
+				myGame.curPlayer += 1;
+				
+				socket.emit('newCombo',{
+					combo:JSON.stringify(myCombo)
+				});
+			}
 		}
 
 		/*
