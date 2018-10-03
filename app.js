@@ -77,12 +77,24 @@ io.sockets.on('connection', function(socket){
 	});
 	
 	
-	
+	// Check if the combo is valid then respond accordingly
 	socket.on('newCombo', function(data){
-		var theCombo = JSON.parse(data.combo);
-		for(var i = 0; i < theCombo.length; i++){
-			console.log(theCombo[i].value + " " + theCombo[i].suit);
+		// Read the inputted combo
+		var comboStr = JSON.parse(data.combo);
+		var theCombo = new Combo();
+		for(var i = 0; i < comboStr.length; i++){
+			//debug
+			console.log(comboStr[i].value + " " + comboStr[i].suit);
+			
+			var card = new Card(comboStr[i].value, comboStr[i].suit);
+			theCombo.addCard(card);
 		}
+		
+		// Try to play the combo and 
+		if(!game.playCombo(theCombo)){
+			// CONTINUE HERE
+		}
+		
 	});
 	
 });

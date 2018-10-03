@@ -11,6 +11,8 @@
 			online. If you want to review the rules for the game, click 
 			<a href="https://en.wikipedia.org/wiki/Ti%E1%BA%BFn_l%C3%AAn" target="_blank">here</a>.
 		</p>
+		
+		<p id="Player Info"><b><i>Waiting to more players...</i></b></p>
 	</body>
 
 	<body>
@@ -134,6 +136,10 @@
 				myNum = data.playerNum;
 				myGame = game; 
 				myHand = game.pHands[myNum];
+				
+				// Update player display
+				var disp = "Current Player: " + myGame.curPlayer.toString() + ", You: Player " + myNum.toString();
+				document.getElementById("Player Info").innerHTML = disp;
 				//console.log('line read');
 				
 				// Update cur combo display(the one you have to beat)
@@ -263,7 +269,7 @@
 		
 		// Send combo to game so that it can be checked
 		function submitCombo(){
-		console.log(myNum + " " + myGame.curPlayer);
+			console.log(myNum + " " + myGame.curPlayer);
 			if(myNum == myGame.curPlayer){
 				// Prevent player from submitting again before game is updated
 				myGame.curPlayer += 1;

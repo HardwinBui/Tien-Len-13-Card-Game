@@ -17,17 +17,18 @@ class Game{
 		// Randomly distribute cards to each player
 		for(var i = 1; i <= 52; i++){
 			var randomPlayer = Math.floor(Math.random() * 4);
-			if(this.pHands[randomPlayer].hand.length < 13){
-				var card = new Card(i % 13, Math.floor(i / 13) % 4);
-				this.pHands[randomPlayer].addCard(card);
-				
-				// Make the person who has the 3 of spades go first
-				if(card.value == 2 && card.suit == 0){
-					this.curPlayer = randomPlayer;
-				}
+			// Make sure no one gets more than 13 cards
+			while(this.pHands[randomPlayer].hand.length >= 13){
+				randomPlayer += 1;
+				randomPlayer %= 4;
 			}
-			else {
-				i--;
+			
+			var card = new Card(i % 13, Math.floor(i / 13) % 4);
+			this.pHands[randomPlayer].addCard(card);
+				
+			// Make the person who has the 3 of spades go first
+			if(card.value == 2 && card.suit == 0){
+				this.curPlayer = randomPlayer;
 			}
 		}
 
