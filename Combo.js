@@ -102,6 +102,25 @@ class Combo{
 		return Combo.isSingle(combo) || Combo.isPair(combo) || Combo.isTriple(combo) ||
 				Combo.isRun(combo) || Combo.isPairBomb(combo) || Combo.isFourOfKind(combo);
 	}
+	
+	// Checks if there is a 3 of spades in the combo
+	static hasThreeOfSpades(combo){
+		for(var i = 0; i < combo.hand.length; i++){
+			if(combo.hand[i].value == 0 && combo.hand[i].suit == 0)
+				return true;
+		}
+		return false;
+	}
+	
+	// Returns the amount of 2 cards in the combo
+	static getAmtOfTwos(combo){
+		var twoAmt = 0;
+		for(var i = 0; i < combo.hand.length; i++){
+			if(combo.hand[i].value == 12)
+				twoAmt += 1;
+		}
+		return twoAmt;
+	}
 
 	// Prints the current combo for debugging
 	printCombo(){

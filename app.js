@@ -60,21 +60,7 @@ io.sockets.on('connection', function(socket){
 		playerAmt -= 1;
 		console.log('A player has left.');
 	});
-
-
-
-
-
-	// Server recieves message
-	socket.on(':^]', function(data){
-		console.log(data.why);
-	});
 	
-	// Server sends message
-	socket.emit(':^[', {
-			// can see message in website console log
-		msg:'not happy',
-	});
 	
 	
 	// Check if the combo is valid then respond accordingly
@@ -83,18 +69,33 @@ io.sockets.on('connection', function(socket){
 		var comboStr = JSON.parse(data.combo);
 		var theCombo = new Combo();
 		for(var i = 0; i < comboStr.length; i++){
-			//debug
-			console.log(comboStr[i].value + " " + comboStr[i].suit);
-			
 			var card = new Card(comboStr[i].value, comboStr[i].suit);
 			theCombo.addCard(card);
 		}
 		
 		// Try to play the combo and 
 		if(!game.playCombo(theCombo)){
-			// CONTINUE HERE
+			// Determine which error message to send
+			var errMsg;
+			if(!Combo.isValid(theCombo))
+				errMsg = 'Your input is invalid.';
+			else if(game.curTurn <= 0 && !Combo.hasThreeOfSpades(theCombo))
+				errMsg = 'You must use the 3 of spades in your combination.';
+			else
+				errMsg = 'Your combination doesn\'t beat the current combination.';
+						
+			// Send error message to player
+			socket.emit('invalidInput', {
+				msg: errMsg,
+				curPlayer: game.curPlayer,
+			});
 		}
 		
+	});
+	
+	// Check if the current player decided to skip their turn
+	socket.on('skipRound', function(data){
+		game.passRound();
 	});
 	
 });
@@ -103,12 +104,9 @@ io.sockets.on('connection', function(socket){
 
 // Called every 40 mills
 setInterval(function(){
-	//for each player, emit game message
-
-	//console.log(PLAYER_LIST.length);
-
+	
+	// For each player, emit game message
 	if(playerAmt >= 4){	
-		//console.log(playerAmt);
 		for(var i in PLAYER_LIST){
 			var player = PLAYER_LIST[i];
 			//stuff
@@ -118,12 +116,6 @@ setInterval(function(){
 				playerNum: i,
 			});
 		}
-
-		/*
-		PLAYER_LIST[game.curPlayer].on('upsGame', function(data){
-			//not sure if work test tmr
-		});
-		*/
 	}
 	
 }, 1000/25);

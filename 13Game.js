@@ -6,6 +6,7 @@ class Game{
 	constructor(p1, p2, p3, p4) {		
 		this.players = [p1, p2, p3, p4];
 		this.playerIn = [true, true, true, true];
+		this.winners = [];
 		this.curPlayer = 0;
 		this.curTurn = 0;
 		
@@ -27,34 +28,12 @@ class Game{
 			this.pHands[randomPlayer].addCard(card);
 				
 			// Make the person who has the 3 of spades go first
-			if(card.value == 2 && card.suit == 0){
+			if(card.value == 0 && card.suit == 0){
 				this.curPlayer = randomPlayer;
 			}
 		}
 
 		this.curCombo = new Combo();
-	
-		
-		
-	//	this.curCombo.addCard(new Card(3, 0));
-	/*	this.curCombo.addCard(new Card(2, 1));
-		this.curCombo.addCard(new Card(2, 1));
-		this.curCombo.addCard(new Card(2, 0));
-		this.curCombo.printCombo();
-		console.log(Combo.isPairBomb(this.curCombo));
-		*/
-		//	console.log(Combo.isValid(this.curCombo));
-
-		// Check for instant wins
-		
-		// Print player 1's hand
-		/*
-		console.log('player 1:');
-		for(var i = 0; i < 13; i++){
-			console.log(this.pHands[randomPlayer][i].value + 
-				" " + this.pHands[randomPlayer][i].suit);
-		}
-		*/
 	}
 	
 	// Determine if a given combo can beat the current combo
@@ -62,10 +41,20 @@ class Game{
 		if(!Combo.isValid(combo))
 			return false;
 		
+		if(this.curTurn <= 0 && !Combo.hasThreeOfSpades(combo))
+			return false;
+		
 		var oldCombo = this.curCombo;
 		// Can play anything if there's nothing in the current pot
 		if(oldCombo.hand.length <= 0)
 			return true;
+		
+		// See if a bomb can be played
+		if(Combo.isPairBomb(oldCombo) || Combo.isFourOfKind(oldCombo)){
+			if(Combo.getAmtOfTwos(this.curCombo) > 0){
+				return true;
+			}
+		}
 
 		// Otherwise make sure played hand and combo in pot matches
 		if((Combo.isSingle(oldCombo) && Combo.isSingle(combo)) 
@@ -75,7 +64,6 @@ class Game{
 			|| (Combo.isPairBomb(oldCombo) && Combo.isPairBomb(combo))
 			|| (Combo.isFourOfKind(oldCombo) && Combo.isFourOfKind(combo))){
 			
-				console.log(oldCombo.hand[0].value + " " + combo.hand[0].value);
 			if(oldCombo.hand[0].value < combo.hand[0].value)
 				return true;
 			else if(oldCombo.hand[0].value == combo.hand[0].value)
@@ -92,10 +80,16 @@ class Game{
 			for(var i = 0; i < combo.hand.length; i++){
 				this.pHands[this.curPlayer].removeCard(combo.hand[i]);
 			}
+			// See if player has won
+			console.log(this.pHands[this.curPlayer].hand.length);
+			if(this.pHands[this.curPlayer].hand.length <= 0){
+				this.winners.push(this.curPlayer);
+				console.log('winners: ' + this.winners.length.toString());
+				this.playerIn[this.curPlayer] = false;
+			}
 			this.nextPlayer();
 			return true;
 		}
-		console.log(combo.hand[0].value + " " + combo.hand[0].suit);
 		return false;
 	}
 
@@ -108,6 +102,19 @@ class Game{
 			if(prevPlayer == this.curPlayer)
 				break;
 		} while(this.pHands[this.curPlayer].hand.length <= 0 || !this.playerIn[this.curPlayer])
+	
+		// Reset current combo if there's only one player left in the round
+		var playersOut = 0;
+		for(var i = 0; i < this.playerIn.length; i++){
+			if(!this.playerIn[i])
+				playersOut += 1;
+		}
+
+		if(playersOut >= 3){
+			this.resetRound();
+		}
+
+		this.curTurn += 1;
 	}
 	
 	// Allows each player with cards to play in the round again
@@ -138,6 +145,7 @@ class Game{
 			curPlayer: this.curPlayer,
 			curTurn: this.curTurn,
 			curCombo: this.curCombo.hand,
+			winners: this.winners,
 			pHands: jHands,
 			pIn: this.playerIn
 		};

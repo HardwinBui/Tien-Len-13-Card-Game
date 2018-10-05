@@ -9,10 +9,14 @@
 		<p>This website is a nonprofit project made in order for people to
 			enjoy the Vietnamese card game, 13 or Tien Len, with each other
 			online. If you want to review the rules for the game, click 
-			<a href="https://en.wikipedia.org/wiki/Ti%E1%BA%BFn_l%C3%AAn" target="_blank">here</a>.
+			<a href="https://en.wikipedia.org/wiki/Ti%E1%BA%BFn_l%C3%AAn" target="_blank">here</a>.<br/>
+			In order to select cards that you want to play or move them back to your hand, 
+			just click on the image of the desired card.
 		</p>
 		
+		<p id="Winners"></p>
 		<p id="Player Info"><b><i>Waiting to more players...</i></b></p>
+		<p id="ErrMsg"></p>
 	</body>
 
 	<body>
@@ -94,16 +98,12 @@
 	
 	<br/>
 	<p  align="center"><button type="button" onclick="javascript:submitCombo()">Play <br>Combination</button></p>
+	<p  align="center"><button type="button" onclick="javascript:skipRound()">Skip <br>Round</button></p>
 
-	<!-- button type="button" style="height:200px; width:200px">A0</button -->
-
-	<!-- Javascript that will be ran by the client -->
-	<!--script src="https://cdn.socket.io/socket.io-1.4.5.js"></script-->
+	
+	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
 	<script>
-	//	const Game = require('./js/13Game');
-	//	const Combo = require('/client/js/Combo.js');
-	//	const Card = require('./js/Card');
 	
 		function Card(val, suit){
 			this.value = val;
@@ -118,17 +118,17 @@
 		var myHand = [];
 		var myNum;
 		
-		
 		var socket = io();
-	
-		socket.emit(':^]',{
-			why:'happy recieved by client'
-		});
-	
-		socket.on(':^[', function(data){
-			console.log(data.msg);
+		
+		
+		socket.on('invalidInput', function(data){
+			if(myNum == data.curPlayer){
+				document.getElementById("ErrMsg").innerHTML = data.msg;
+				myGame.curTurn -= 2;
+			}
 		});
 		
+		// Update game if a new version of the game is received
 		socket.on('curGame', function(data){
 			var game = JSON.parse(data.gameData);
 		
@@ -136,21 +136,38 @@
 				myNum = data.playerNum;
 				myGame = game; 
 				myHand = game.pHands[myNum];
+				myCombo = [];
+				
+				// Update winner display
+				var winDisp = "";
+				if(myGame.winners.length > 0)
+					winDisp += '1st: Player ' + myGame.winners[0].toString();
+				if(myGame.winners.length > 1)
+					winDisp += ' | 2nd: Player ' + myGame.winners[1].toString();
+				if(myGame.winners.length > 2)
+					winDisp += ' | 3rd: Player ' + myGame.winners[2].toString();
+				if(myGame.winners.length > 3)
+					winDisp += ' | 4th: Player ' + myGame.winners[3].toString();
+				document.getElementById("Winners").innerHTML = winDisp;
 				
 				// Update player display
 				var disp = "Current Player: " + myGame.curPlayer.toString() + ", You: Player " + myNum.toString();
 				document.getElementById("Player Info").innerHTML = disp;
-				//console.log('line read');
+				
+				// Update error display
+				if(myNum != game.curPlayer){
+					document.getElementById("ErrMsg").innerHTML = '';
+				}
 				
 				// Update cur combo display(the one you have to beat)
 				for(var i = 0; i < 13; i++){
 					if(i < myGame.curCombo.length){
-					var card = myGame.curCombo[myGame.curCombo - 1 - i];
-					document.getElementById("disp" + (i+1).toString()).src = "/client/img/" 
-						+ valuePrint[card.value] + suitPrint[card.suit] + ".png";
-					document.getElementById("disp" + (i+1).toString()).alt = card.value + "" 
-						+ card.suit;
-						
+						var card = myGame.curCombo[myGame.curCombo.length - 1 - i];
+						document.getElementById("disp" + (i+1).toString()).src = "/client/img/" 
+							+ valuePrint[card.value] + suitPrint[card.suit] + ".png";
+						document.getElementById("disp" + (i+1).toString()).alt = card.value + "" 
+							+ card.suit;
+							
 						document.getElementById("disp" + (i+1).toString()).style.display = "inline";
 					}
 					else{
@@ -269,7 +286,6 @@
 		
 		// Send combo to game so that it can be checked
 		function submitCombo(){
-			console.log(myNum + " " + myGame.curPlayer);
 			if(myNum == myGame.curPlayer){
 				// Prevent player from submitting again before game is updated
 				myGame.curPlayer += 1;
@@ -278,16 +294,22 @@
 					combo:JSON.stringify(myCombo)
 				});
 			}
-		}
-
-		/*
-		// Called every 40 mills
-		setInterval(function(){
-			if(game){	
-
+			else{
+				document.getElementById("ErrMsg").innerHTML = 'It\'s not your turn!';
 			}
-		}, 1000/25);
-		*/
+		}
+		
+		// Skip the current round
+		function skipRound(){
+			if(myNum == myGame.curPlayer){
+				socket.emit('skipRound',{
+					player: myNum
+				});
+			}
+			else{
+				document.getElementById("ErrMsg").innerHTML = 'It\'s not your turn!';
+			}
+		}
 		
 	</script>
 
