@@ -1,316 +1,316 @@
 <html>
-	
-	<head>
-		<title>13 Card Game :]</title>
-	</head>
+    
+    <head>
+        <title>13 Card Game :]</title>
+    </head>
 
-	<body>
-		<h1>Tien Len (by Hardwin Bui)</h1>
-		<p>This website is a nonprofit project made in order for people to
-			enjoy the Vietnamese card game, 13 or Tien Len, with each other
-			online. If you want to review the rules for the game, click 
-			<a href="https://en.wikipedia.org/wiki/Ti%E1%BA%BFn_l%C3%AAn" target="_blank">here</a>.<br/>
-			In order to select cards that you want to play or move them back to your hand, 
-			just click on the image of the desired card.
-		</p>
-		
-		<p id="Winners"></p>
-		<p id="Player Info"><b><i>Waiting to more players...</i></b></p>
-		<p id="ErrMsg"></p>
-	</body>
+    <body>
+        <h1>Tien Len (by Hardwin Bui)</h1>
+        <p>This website is a nonprofit project made in order for people to
+            enjoy the Vietnamese card game, 13 or Tien Len, with each other
+            online. If you want to review the rules for the game, click 
+            <a href="https://en.wikipedia.org/wiki/Ti%E1%BA%BFn_l%C3%AAn" target="_blank">here</a>.<br/>
+            In order to select cards that you want to play or move them back to your hand, 
+            just click on the image of the desired card.
+        </p>
+        
+        <p id="Winners"></p>
+        <p id="Player Info"><b><i>Waiting to more players...</i></b></p>
+        <p id="ErrMsg"></p>
+    </body>
 
-	<body>
-		<p>Current Combination:</p>
-		<img src="/client/img/1D.png" alt="12" style="height:80px; width:60px" id="disp1">
-		<img src="/client/img/2D.png" alt="12" style="height:80px; width:60px" id="disp2">
-		<img src="/client/img/3D.png" alt="12" style="height:80px; width:60px" id="disp3">
-		<img src="/client/img/4D.png" alt="12" style="height:80px; width:60px" id="disp4">
-		<img src="/client/img/5D.png" alt="12" style="height:80px; width:60px" id="disp5">
-		<img src="/client/img/6D.png" alt="12" style="height:80px; width:60px" id="disp6">
-		<img src="/client/img/7D.png" alt="12" style="height:80px; width:60px" id="disp7">
-		<img src="/client/img/8D.png" alt="12" style="height:80px; width:60px" id="disp8">
-		<img src="/client/img/9D.png" alt="12" style="height:80px; width:60px" id="disp9">
-		<img src="/client/img/10D.png" alt="12" style="height:80px; width:60px" id="disp10">
-		<img src="/client/img/JD.png" alt="12" style="height:80px; width:60px" id="disp11">
-		<img src="/client/img/QD.png" alt="12" style="height:80px; width:60px" id="disp12">
-		<img src="/client/img/KD.png" alt="12" style="height:80px; width:60px" id="disp13">
-	</body>
-	
-	<body>
-		<p>Play cards from your hand:</p>
-		<img onclick="javascript:addToHand('1')" src="/client/img/1H.png" alt="12" 
-			style="height:80px; width:60px" id="play1">
-		<img onclick="javascript:addToHand('2')" src="/client/img/2H.png" alt="12" 
-			style="height:80px; width:60px" id="play2">
-		<img onclick="javascript:addToHand('3')" src="/client/img/3H.png" alt="12"
-			style="height:80px; width:60px" id="play3">
-		<img onclick="javascript:addToHand('4')" src="/client/img/4H.png" alt="12" 
-			style="height:80px; width:60px" id="play4">
-		<img onclick="javascript:addToHand('5')" src="/client/img/5H.png" alt="12" 
-			style="height:80px; width:60px" id="play5">
-		<img onclick="javascript:addToHand('6')" src="/client/img/6H.png" alt="12"
-			style="height:80px; width:60px" id="play6">
-		<img onclick="javascript:addToHand('7')" src="/client/img/7H.png" alt="12" 
-			style="height:80px; width:60px" id="play7">
-		<img onclick="javascript:addToHand('8')" src="/client/img/8H.png" alt="12" 
-			style="height:80px; width:60px" id="play8">
-		<img onclick="javascript:addToHand('9')" src="/client/img/9H.png" alt="12"
-			style="height:80px; width:60px" id="play9">
-		<img onclick="javascript:addToHand('10')" src="/client/img/10H.png" alt="12" 
-			style="height:80px; width:60px" id="play10">
-		<img onclick="javascript:addToHand('11')" src="/client/img/JH.png" alt="12" 
-			style="height:80px; width:60px" id="play11">
-		<img onclick="javascript:addToHand('12')" src="/client/img/QH.png" alt="12"
-			style="height:80px; width:60px" id="play12">
-		<img onclick="javascript:addToHand('13')" src="/client/img/KH.png" alt="12"
-			style="height:80px; width:60px" id="play13">				
-	</body>
-	
-	<body>
-		<p>Your hand:</p>
-		<img onclick="javascript:addToCombo('1')" src="/client/img/1S.png" alt="12" 
-			style="height:80px; width:60px" id="card1">
-		<img onclick="javascript:addToCombo('2')" src="/client/img/2S.png" alt="12" 
-			style="height:80px; width:60px" id="card2">
-		<img onclick="javascript:addToCombo('3')" src="/client/img/3S.png" alt="12"
-			style="height:80px; width:60px" id="card3">
-		<img onclick="javascript:addToCombo('4')" src="/client/img/4S.png" alt="12" 
-			style="height:80px; width:60px" id="card4">
-		<img onclick="javascript:addToCombo('5')" src="/client/img/5S.png" alt="12" 
-			style="height:80px; width:60px" id="card5">
-		<img onclick="javascript:addToCombo('6')" src="/client/img/6S.png" alt="12"
-			style="height:80px; width:60px" id="card6">
-		<img onclick="javascript:addToCombo('7')" src="/client/img/7S.png" alt="12" 
-			style="height:80px; width:60px" id="card7">
-		<img onclick="javascript:addToCombo('8')" src="/client/img/8S.png" alt="12" 
-			style="height:80px; width:60px" id="card8">
-		<img onclick="javascript:addToCombo('9')" src="/client/img/9S.png" alt="12"
-			style="height:80px; width:60px" id="card9">
-		<img onclick="javascript:addToCombo('10')" src="/client/img/10S.png" alt="12" 
-			style="height:80px; width:60px" id="card10">
-		<img onclick="javascript:addToCombo('11')" src="/client/img/JS.png" alt="12" 
-			style="height:80px; width:60px" id="card11">
-		<img onclick="javascript:addToCombo('12')" src="/client/img/QS.png" alt="12"
-			style="height:80px; width:60px" id="card12">
-		<img onclick="javascript:addToCombo('13')" src="/client/img/KS.png" alt="132"
-			style="height:80px; width:60px" id="card13">	
-	</body>
-	
-	<br/>
-	<p  align="center"><button type="button" onclick="javascript:submitCombo()">Play <br>Combination</button></p>
-	<p  align="center"><button type="button" onclick="javascript:skipRound()">Skip <br>Round</button></p>
+    <body>
+        <p>Current Combination:</p>
+        <img src="/client/img/1D.png" alt="12" style="height:80px; width:60px" id="disp1">
+        <img src="/client/img/2D.png" alt="12" style="height:80px; width:60px" id="disp2">
+        <img src="/client/img/3D.png" alt="12" style="height:80px; width:60px" id="disp3">
+        <img src="/client/img/4D.png" alt="12" style="height:80px; width:60px" id="disp4">
+        <img src="/client/img/5D.png" alt="12" style="height:80px; width:60px" id="disp5">
+        <img src="/client/img/6D.png" alt="12" style="height:80px; width:60px" id="disp6">
+        <img src="/client/img/7D.png" alt="12" style="height:80px; width:60px" id="disp7">
+        <img src="/client/img/8D.png" alt="12" style="height:80px; width:60px" id="disp8">
+        <img src="/client/img/9D.png" alt="12" style="height:80px; width:60px" id="disp9">
+        <img src="/client/img/10D.png" alt="12" style="height:80px; width:60px" id="disp10">
+        <img src="/client/img/JD.png" alt="12" style="height:80px; width:60px" id="disp11">
+        <img src="/client/img/QD.png" alt="12" style="height:80px; width:60px" id="disp12">
+        <img src="/client/img/KD.png" alt="12" style="height:80px; width:60px" id="disp13">
+    </body>
+    
+    <body>
+        <p>Play cards from your hand:</p>
+        <img onclick="javascript:addToHand('1')" src="/client/img/1H.png" alt="12" 
+            style="height:80px; width:60px" id="play1">
+        <img onclick="javascript:addToHand('2')" src="/client/img/2H.png" alt="12" 
+            style="height:80px; width:60px" id="play2">
+        <img onclick="javascript:addToHand('3')" src="/client/img/3H.png" alt="12"
+            style="height:80px; width:60px" id="play3">
+        <img onclick="javascript:addToHand('4')" src="/client/img/4H.png" alt="12" 
+            style="height:80px; width:60px" id="play4">
+        <img onclick="javascript:addToHand('5')" src="/client/img/5H.png" alt="12" 
+            style="height:80px; width:60px" id="play5">
+        <img onclick="javascript:addToHand('6')" src="/client/img/6H.png" alt="12"
+            style="height:80px; width:60px" id="play6">
+        <img onclick="javascript:addToHand('7')" src="/client/img/7H.png" alt="12" 
+            style="height:80px; width:60px" id="play7">
+        <img onclick="javascript:addToHand('8')" src="/client/img/8H.png" alt="12" 
+            style="height:80px; width:60px" id="play8">
+        <img onclick="javascript:addToHand('9')" src="/client/img/9H.png" alt="12"
+            style="height:80px; width:60px" id="play9">
+        <img onclick="javascript:addToHand('10')" src="/client/img/10H.png" alt="12" 
+            style="height:80px; width:60px" id="play10">
+        <img onclick="javascript:addToHand('11')" src="/client/img/JH.png" alt="12" 
+            style="height:80px; width:60px" id="play11">
+        <img onclick="javascript:addToHand('12')" src="/client/img/QH.png" alt="12"
+            style="height:80px; width:60px" id="play12">
+        <img onclick="javascript:addToHand('13')" src="/client/img/KH.png" alt="12"
+            style="height:80px; width:60px" id="play13">                
+    </body>
+    
+    <body>
+        <p>Your hand:</p>
+        <img onclick="javascript:addToCombo('1')" src="/client/img/1S.png" alt="12" 
+            style="height:80px; width:60px" id="card1">
+        <img onclick="javascript:addToCombo('2')" src="/client/img/2S.png" alt="12" 
+            style="height:80px; width:60px" id="card2">
+        <img onclick="javascript:addToCombo('3')" src="/client/img/3S.png" alt="12"
+            style="height:80px; width:60px" id="card3">
+        <img onclick="javascript:addToCombo('4')" src="/client/img/4S.png" alt="12" 
+            style="height:80px; width:60px" id="card4">
+        <img onclick="javascript:addToCombo('5')" src="/client/img/5S.png" alt="12" 
+            style="height:80px; width:60px" id="card5">
+        <img onclick="javascript:addToCombo('6')" src="/client/img/6S.png" alt="12"
+            style="height:80px; width:60px" id="card6">
+        <img onclick="javascript:addToCombo('7')" src="/client/img/7S.png" alt="12" 
+            style="height:80px; width:60px" id="card7">
+        <img onclick="javascript:addToCombo('8')" src="/client/img/8S.png" alt="12" 
+            style="height:80px; width:60px" id="card8">
+        <img onclick="javascript:addToCombo('9')" src="/client/img/9S.png" alt="12"
+            style="height:80px; width:60px" id="card9">
+        <img onclick="javascript:addToCombo('10')" src="/client/img/10S.png" alt="12" 
+            style="height:80px; width:60px" id="card10">
+        <img onclick="javascript:addToCombo('11')" src="/client/img/JS.png" alt="12" 
+            style="height:80px; width:60px" id="card11">
+        <img onclick="javascript:addToCombo('12')" src="/client/img/QS.png" alt="12"
+            style="height:80px; width:60px" id="card12">
+        <img onclick="javascript:addToCombo('13')" src="/client/img/KS.png" alt="132"
+            style="height:80px; width:60px" id="card13">    
+    </body>
+    
+    <br/>
+    <p  align="center"><button type="button" onclick="javascript:submitCombo()">Play <br>Combination</button></p>
+    <p  align="center"><button type="button" onclick="javascript:skipRound()">Skip <br>Round</button></p>
 
-	
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
-	<script>
-	
-		function Card(val, suit){
-			this.value = val;
-			this.suit = suit;
-		}
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+    <script>
+    
+        function Card(val, suit){
+            this.value = val;
+            this.suit = suit;
+        }
 
-		const valuePrint = ['3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', '1', '2'];
-		const suitPrint = ['S', 'C', 'D', 'H'];
-		
-		var myGame = null;
-		var myCombo = [];
-		var myHand = [];
-		var myNum;
-		
-		var socket = io();
-		
-		
-		socket.on('invalidInput', function(data){
-			if(myNum == data.curPlayer){
-				document.getElementById("ErrMsg").innerHTML = data.msg;
-				myGame.curTurn -= 2;
-			}
-		});
-		
-		// Update game if a new version of the game is received
-		socket.on('curGame', function(data){
-			var game = JSON.parse(data.gameData);
-		
-			if(myGame == null || myGame.curTurn != game.curTurn){
-				myNum = data.playerNum;
-				myGame = game; 
-				myHand = game.pHands[myNum];
-				myCombo = [];
-				
-				// Update winner display
-				var winDisp = "";
-				if(myGame.winners.length > 0)
-					winDisp += '1st: Player ' + myGame.winners[0].toString();
-				if(myGame.winners.length > 1)
-					winDisp += ' | 2nd: Player ' + myGame.winners[1].toString();
-				if(myGame.winners.length > 2)
-					winDisp += ' | 3rd: Player ' + myGame.winners[2].toString();
-				if(myGame.winners.length > 3)
-					winDisp += ' | 4th: Player ' + myGame.winners[3].toString();
-				document.getElementById("Winners").innerHTML = winDisp;
-				
-				// Update player display
-				var disp = "Current Player: " + myGame.curPlayer.toString() + ", You: Player " + myNum.toString();
-				document.getElementById("Player Info").innerHTML = disp;
-				
-				// Update error display
-				if(myNum != game.curPlayer){
-					document.getElementById("ErrMsg").innerHTML = '';
-				}
-				
-				// Update cur combo display(the one you have to beat)
-				for(var i = 0; i < 13; i++){
-					if(i < myGame.curCombo.length){
-						var card = myGame.curCombo[myGame.curCombo.length - 1 - i];
-						document.getElementById("disp" + (i+1).toString()).src = "/client/img/" 
-							+ valuePrint[card.value] + suitPrint[card.suit] + ".png";
-						document.getElementById("disp" + (i+1).toString()).alt = card.value + "" 
-							+ card.suit;
-							
-						document.getElementById("disp" + (i+1).toString()).style.display = "inline";
-					}
-					else{
-						document.getElementById("disp" + (i+1).toString()).style.display = "none";
-					}
-				}
-				
-				// Update other two displays
-				updateDisplays();
-				
-			}
-		});
-		
-		// Update the display of the player's hand and combo
-		function updateDisplays(){
-		
-			for(var i = 0; i < 13; i++){
-				// Update player's hand
-				if(i < myHand.length){
-					var card = myHand[myHand.length - 1 - i];
-					document.getElementById("card" + (i+1).toString()).src = "/client/img/" 
-						+ valuePrint[card.value] + suitPrint[card.suit] + ".png";
-					document.getElementById("card" + (i+1).toString()).alt = card.value + "" 
-						+ card.suit;
-					document.getElementById("card" + (i+1).toString()).style.display = "inline";
-				}
-				else{
-					document.getElementById("card" + (i+1).toString()).style.display = "none";
-				}
-		
-				// Update player's current combo
-				if(i < myCombo.length){
-					var card = myCombo[myCombo.length - 1 - i];
-					document.getElementById("play" + (i+1).toString()).src = "/client/img/" 
-						+ valuePrint[card.value] + suitPrint[card.suit] + ".png";
-					document.getElementById("play" + (i+1).toString()).alt = card.value + ""
-						+ card.suit;
-					document.getElementById("play" + (i+1).toString()).style.display = "inline";
-				}
-				else{
-					document.getElementById("play" + (i+1).toString()).style.display = "none";
-				}
-			}
-			
-		}
-		
-		// Add a card to a hand
-		function addCard(hand, card){
-			var isAdded = false;
-			for(var i = 0; i < hand.length; i++){
-				if(card.value > hand[i].value){
-					hand.splice(i, 0, card);
-					isAdded = true;
-					break;
-				}
-				else if(card.value == hand[i].value){
-					if(card.suit > hand[i].suit){
-						hand.splice(i, 0, card);
-						isAdded = true;
-						break;
-					}
-				} 
-			}
-			if(!isAdded){	
-				hand.push(card);
-			}
-		}
-		
-		// Remove a card from a hand
-		function removeCard(hand, card){
-			for(var i = 0; i < hand.length; i++){
-				if(hand[i].value == card.value && hand[i].suit == card.suit){
-					hand.splice(i, 1);
-					break;
-				}
-			}
-		}
-		
-		// Adds a card from the hand to the combo
-		function addToCombo(index){
-		
-			var val = document.getElementById("card" + index).alt.charCodeAt(0) - 48;
-			var suit = document.getElementById("card" + index).alt.charCodeAt(1) - 48;
-			// Check to see if the value had two digits
-			if(document.getElementById("card" + index).alt.length > 2){
-				val = 10 + suit;
-				suit = document.getElementById("card" + index).alt.charCodeAt(2) - 48;
-			}
-					
-			// Add the card to your combo 
-			var card = new Card(val, suit);
-			addCard(myCombo, card);
-			removeCard(myHand, card);
-			updateDisplays();
-			
-		}
-		
-		// Adds a card from the combo to the hand
-		function addToHand(index){
-		
-			var val = document.getElementById("play" + index).alt.charCodeAt(0) - 48;
-			var suit = document.getElementById("play" + index).alt.charCodeAt(1) - 48;
-			// Check to see if the value had two digits
-			if(document.getElementById("play" + index).alt.length > 2){
-				val = 10 + suit;
-				suit = document.getElementById("play" + index).alt.charCodeAt(2) - 48;
-			}
-					
-			// Add the card to your combo 
-			var card = new Card(val, suit);
-			addCard(myHand, card);
-			removeCard(myCombo, card);
-			updateDisplays();
-			
-		}
-		
-		// Send combo to game so that it can be checked
-		function submitCombo(){
-			if(myNum == myGame.curPlayer){
-				// Prevent player from submitting again before game is updated
-				myGame.curPlayer += 1;
-				
-				socket.emit('newCombo',{
-					combo:JSON.stringify(myCombo)
-				});
-			}
-			else{
-				document.getElementById("ErrMsg").innerHTML = 'It\'s not your turn!';
-			}
-		}
-		
-		// Skip the current round
-		function skipRound(){
-			if(myNum == myGame.curPlayer){
-				socket.emit('skipRound',{
-					player: myNum
-				});
-			}
-			else{
-				document.getElementById("ErrMsg").innerHTML = 'It\'s not your turn!';
-			}
-		}
-		
-	</script>
+        const valuePrint = ['3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', '1', '2'];
+        const suitPrint = ['S', 'C', 'D', 'H'];
+        
+        var myGame = null;
+        var myCombo = [];
+        var myHand = [];
+        var myNum;
+        
+        var socket = io();
+        
+        
+        socket.on('invalidInput', function(data){
+            if(myNum == data.curPlayer){
+                document.getElementById("ErrMsg").innerHTML = data.msg;
+                myGame.curTurn -= 2;
+            }
+        });
+        
+        // Update game if a new version of the game is received
+        socket.on('curGame', function(data){
+            var game = JSON.parse(data.gameData);
+        
+            if(myGame == null || myGame.curTurn != game.curTurn){
+                myNum = data.playerNum;
+                myGame = game; 
+                myHand = game.pHands[myNum];
+                myCombo = [];
+                
+                // Update winner display
+                var winDisp = "";
+                if(myGame.winners.length > 0)
+                    winDisp += '1st: Player ' + myGame.winners[0].toString();
+                if(myGame.winners.length > 1)
+                    winDisp += ' | 2nd: Player ' + myGame.winners[1].toString();
+                if(myGame.winners.length > 2)
+                    winDisp += ' | 3rd: Player ' + myGame.winners[2].toString();
+                if(myGame.winners.length > 3)
+                    winDisp += ' | 4th: Player ' + myGame.winners[3].toString();
+                document.getElementById("Winners").innerHTML = winDisp;
+                
+                // Update player display
+                var disp = "Current Player: " + myGame.curPlayer.toString() + ", You: Player " + myNum.toString();
+                document.getElementById("Player Info").innerHTML = disp;
+                
+                // Update error display
+                if(myNum != game.curPlayer){
+                    document.getElementById("ErrMsg").innerHTML = '';
+                }
+                
+                // Update cur combo display(the one you have to beat)
+                for(var i = 0; i < 13; i++){
+                    if(i < myGame.curCombo.length){
+                        var card = myGame.curCombo[myGame.curCombo.length - 1 - i];
+                        document.getElementById("disp" + (i+1).toString()).src = "/client/img/" 
+                            + valuePrint[card.value] + suitPrint[card.suit] + ".png";
+                        document.getElementById("disp" + (i+1).toString()).alt = card.value + "" 
+                            + card.suit;
+                            
+                        document.getElementById("disp" + (i+1).toString()).style.display = "inline";
+                    }
+                    else{
+                        document.getElementById("disp" + (i+1).toString()).style.display = "none";
+                    }
+                }
+                
+                // Update other two displays
+                updateDisplays();
+                
+            }
+        });
+        
+        // Update the display of the player's hand and combo
+        function updateDisplays(){
+        
+            for(var i = 0; i < 13; i++){
+                // Update player's hand
+                if(i < myHand.length){
+                    var card = myHand[myHand.length - 1 - i];
+                    document.getElementById("card" + (i+1).toString()).src = "/client/img/" 
+                        + valuePrint[card.value] + suitPrint[card.suit] + ".png";
+                    document.getElementById("card" + (i+1).toString()).alt = card.value + "" 
+                        + card.suit;
+                    document.getElementById("card" + (i+1).toString()).style.display = "inline";
+                }
+                else{
+                    document.getElementById("card" + (i+1).toString()).style.display = "none";
+                }
+        
+                // Update player's current combo
+                if(i < myCombo.length){
+                    var card = myCombo[myCombo.length - 1 - i];
+                    document.getElementById("play" + (i+1).toString()).src = "/client/img/" 
+                        + valuePrint[card.value] + suitPrint[card.suit] + ".png";
+                    document.getElementById("play" + (i+1).toString()).alt = card.value + ""
+                        + card.suit;
+                    document.getElementById("play" + (i+1).toString()).style.display = "inline";
+                }
+                else{
+                    document.getElementById("play" + (i+1).toString()).style.display = "none";
+                }
+            }
+            
+        }
+        
+        // Add a card to a hand
+        function addCard(hand, card){
+            var isAdded = false;
+            for(var i = 0; i < hand.length; i++){
+                if(card.value > hand[i].value){
+                    hand.splice(i, 0, card);
+                    isAdded = true;
+                    break;
+                }
+                else if(card.value == hand[i].value){
+                    if(card.suit > hand[i].suit){
+                        hand.splice(i, 0, card);
+                        isAdded = true;
+                        break;
+                    }
+                } 
+            }
+            if(!isAdded){   
+                hand.push(card);
+            }
+        }
+        
+        // Remove a card from a hand
+        function removeCard(hand, card){
+            for(var i = 0; i < hand.length; i++){
+                if(hand[i].value == card.value && hand[i].suit == card.suit){
+                    hand.splice(i, 1);
+                    break;
+                }
+            }
+        }
+        
+        // Adds a card from the hand to the combo
+        function addToCombo(index){
+        
+            var val = document.getElementById("card" + index).alt.charCodeAt(0) - 48;
+            var suit = document.getElementById("card" + index).alt.charCodeAt(1) - 48;
+            // Check to see if the value had two digits
+            if(document.getElementById("card" + index).alt.length > 2){
+                val = 10 + suit;
+                suit = document.getElementById("card" + index).alt.charCodeAt(2) - 48;
+            }
+                    
+            // Add the card to your combo 
+            var card = new Card(val, suit);
+            addCard(myCombo, card);
+            removeCard(myHand, card);
+            updateDisplays();
+            
+        }
+        
+        // Adds a card from the combo to the hand
+        function addToHand(index){
+        
+            var val = document.getElementById("play" + index).alt.charCodeAt(0) - 48;
+            var suit = document.getElementById("play" + index).alt.charCodeAt(1) - 48;
+            // Check to see if the value had two digits
+            if(document.getElementById("play" + index).alt.length > 2){
+                val = 10 + suit;
+                suit = document.getElementById("play" + index).alt.charCodeAt(2) - 48;
+            }
+                    
+            // Add the card to your combo 
+            var card = new Card(val, suit);
+            addCard(myHand, card);
+            removeCard(myCombo, card);
+            updateDisplays();
+            
+        }
+        
+        // Send combo to game so that it can be checked
+        function submitCombo(){
+            if(myNum == myGame.curPlayer){
+                // Prevent player from submitting again before game is updated
+                myGame.curPlayer += 1;
+                
+                socket.emit('newCombo',{
+                    combo:JSON.stringify(myCombo)
+                });
+            }
+            else{
+                document.getElementById("ErrMsg").innerHTML = 'It\'s not your turn!';
+            }
+        }
+        
+        // Skip the current round
+        function skipRound(){
+            if(myNum == myGame.curPlayer){
+                socket.emit('skipRound',{
+                    player: myNum
+                });
+            }
+            else{
+                document.getElementById("ErrMsg").innerHTML = 'It\'s not your turn!';
+            }
+        }
+        
+    </script>
 
 </html>
