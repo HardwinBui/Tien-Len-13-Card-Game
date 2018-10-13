@@ -3,7 +3,6 @@ console.log('Link Start');
 const Game = require('./13Game');
 const Combo = require('./Combo');
 const Card = require('./Card');
-//const JSON = require('circular-json');
 
 var port = 2000;
 var express = require('express');
@@ -26,8 +25,6 @@ var playerAmt = 0;
 var temp = 1;
 var game;
 var c = new Combo();
-c.addCard(new Card(4, 0));
-//g.playCombo(c);
 
 // Loading up socket.io tools
 var io = require('socket.io')(serv,{});
@@ -38,7 +35,6 @@ io.sockets.on('connection', function(socket){
     // Add player to player list
     PLAYER_LIST.push(socket);
     playerAmt += 1;
-//  new Game(socket, socket, socket, socket);
 
     for(var i = 0; i < PLAYER_LIST.length; i++)
         console.log(PLAYER_LIST[i].id);
